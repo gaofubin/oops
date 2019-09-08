@@ -1,0 +1,20 @@
+# front build file
+oops_front/node_modules/
+oops_front/dist/
+oops_front/npm-debug.log*
+oops_front/yarn-debug.log*
+oops_front/yarn-error.log*
+oops_front/package-lock.json
+oops_front/tests/**/coverage/
+
+# Editor directories and files
+oops_front/.idea
+oops_front/.vscode
+oops_front/*.suo
+oops_front/*.ntvs*
+oops_front/*.njsproj
+oops_front/*.sln
+
+# pycharm files
+__pycache__/
+.idea
