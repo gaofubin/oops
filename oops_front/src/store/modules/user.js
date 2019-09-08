@@ -49,7 +49,7 @@ const actions = {
         }
         commit('SET_NAME', data.detail.username)
         console.log(name)
-        // commit('SET_AVATAR', avatar)
+        commit('SET_AVATAR', data.detail.avatar)
         resolve(data)
       }).catch(error => {
         reject(error)
