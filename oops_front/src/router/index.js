@@ -51,18 +51,19 @@ export const constantRoutes = [
       path: 'dashboard',
       name: 'Dashboard',
       component: () => import('@/views/dashboard/index'),
-      meta: { title: '首页', icon: 'dashboard', affix: true }
+      meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
   },
   {
     path: '/user',
     component: Layout,
     redirect: 'noredirect',
+    hidden: true,
     children: [{
       path: 'center',
       name: 'center',
-      component: () => import('@/views/dashboard/index'),
-      meta: { title: '用户中心', icon: 'user', affix: true }
+      component: () => import('@/views/system/user'),
+      meta: { title: '用户中心', icon: 'user' }
     }]
   },
 
@@ -71,43 +72,29 @@ export const constantRoutes = [
     component: Layout,
     redirect: '/example/table',
     name: 'Example',
-    meta: { title: '表格', icon: 'example', affix: true },
+    meta: { title: '表格', icon: 'example' },
     children: [
       {
         path: 'table',
         name: 'Table',
         component: () => import('@/views/table/index'),
-        meta: { title: '表格', icon: 'table', affix: true }
+        meta: { title: '表格', icon: 'table' }
       },
       {
         path: 'tree',
         name: 'Tree',
         component: () => import('@/views/tree/index'),
-        meta: { title: '树状', icon: 'tree', affix: true }
+        meta: { title: '树状', icon: 'tree' }
       }
     ]
   },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: '表单', icon: 'form', affix: true }
-      }
-    ]
-  },
-
   {
     path: '/nested',
     component: Layout,
     redirect: '/nested/menu1',
     name: 'Nested',
     meta: {
-      title: '多级菜单',
+      title: '菜单',
       icon: 'nested'
     },
     children: [
@@ -155,17 +142,6 @@ export const constantRoutes = [
         path: 'menu2',
         component: () => import('@/views/nested/menu2/index'),
         meta: { title: '菜单2' }
-      }
-    ]
-  },
-
-  {
-    path: 'external-link',
-    component: Layout,
-    children: [
-      {
-        path: 'https://panjiachen.github.io/vue-element-admin-site/#/',
-        meta: { title: 'External Link', icon: 'link' }
       }
     ]
   },
