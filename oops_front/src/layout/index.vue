@@ -2,19 +2,10 @@
   <div :class="classObj" class="app-wrapper">
     <div v-if="device==='mobile'&&sidebar.opened" class="drawer-bg" @click="handleClickOutside" />
     <sidebar class="sidebar-container" />
-
-    <!--    <div class="main-container">-->
-    <!--      <div :class="{'fixed-header':fixedHeader}">-->
-    <!--        <navbar />-->
-    <!--      </div>-->
-    <!--      <tags-view />-->
-    <!--      <app-main />-->
-    <!--    </div>-->
     <div :class="{hasTagsView:needTagsView}" class="main-container">
       <div :class="{'fixed-header':fixedHeader}">
         <navbar />
-        <!--<tags-view v-if="needTagsView" />-->
-        <tags-view />
+        <tags-view v-if="needTagsView" />
       </div>
       <app-main />
       <right-panel v-if="showSettings">
@@ -27,7 +18,6 @@
 <script>
 import { Navbar, Sidebar, AppMain, TagsView, Settings } from './components'
 import ResizeMixin from './mixin/ResizeHandler'
-import { mapState } from 'vuex'
 import RightPanel from '@/components/RightPanel'
 
 export default {
@@ -42,24 +32,21 @@ export default {
   },
   mixins: [ResizeMixin],
   computed: {
-    ...mapState({
-      sidebar: state => state.app.sidebar,
-      device: state => state.app.device,
-      showSettings: state => state.settings.showSettings,
-      needTagsView: state => state.settings.tagsView,
-      fixedHeader: state => state.settings.fixedHeader
-    }),
-    // sidebar() {
-    //   return this.$store.state.app.sidebar
-    // },
-    // device() {
-    //   return this.$store.state.app.device
-    // },
-    // needTagsView: state => state.settings.tagsView,
-    //
-    // fixedHeader() {
-    //   return this.$store.state.settings.fixedHeader
-    // },
+    sidebar() {
+      return this.$store.state.app.sidebar
+    },
+    device() {
+      return this.$store.state.app.device
+    },
+    needTagsView() {
+      return this.$store.state.settings.tagsView
+    },
+    showSettings() {
+      return this.$store.state.settings.showSettings
+    },
+    fixedHeader() {
+      return this.$store.state.settings.fixedHeader
+    },
     classObj() {
       return {
         hideSidebar: !this.sidebar.opened,
