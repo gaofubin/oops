@@ -20,6 +20,9 @@ const mutations = {
   },
   SET_AVATAR: (state, avatar) => {
     state.avatar = avatar
+  },
+  SET_MENU: (state, menu) => {
+    state.menu = menu
   }
 }
 
@@ -47,9 +50,10 @@ const actions = {
         if (!data) {
           reject('Verification failed, please Login again.')
         }
+        commit('SET_ID', data.detail.id)
         commit('SET_NAME', data.detail.username)
-        console.log(name)
         commit('SET_AVATAR', data.detail.avatar)
+        commit('SET_MENU', data.detail.menu)
         resolve(data)
       }).catch(error => {
         reject(error)

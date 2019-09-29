@@ -5,6 +5,7 @@ import NProgress from 'nprogress' // progress bar
 import 'nprogress/nprogress.css' // progress bar style
 import { getToken } from '@/utils/auth' // get token from cookie
 import getPageTitle from '@/utils/get-page-title'
+import { filterAsyncRouter } from './store/modules/permission'
 
 NProgress.configure({ showSpinner: false }) // NProgress Configuration
 
@@ -32,9 +33,14 @@ router.beforeEach(async(to, from, next) => {
       } else {
         try {
           // get user info
-          await store.dispatch('user/getInfo')
-
-          next()
+          await store.dispatch('user/getInfo').then(res => {
+            const asyncRouter = filterAsyncRouter(res.detail.menus)
+            asyncRouter.push({ path: '*', redirect: '/404', hidden: true })
+            store.dispatch('GenerateRouters', asyncRouter).then(() => {
+              router.addRoutes(asyncRouter)
+              next({ ...to, replace: true })
+            })
+          })
         } catch (error) {
           // remove token and go to login page to re-login
           await store.dispatch('user/resetToken')

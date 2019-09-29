@@ -44,7 +44,6 @@ service.interceptors.response.use(
    * You can also judge the status by HTTP Status Code
    */
   response => {
-    console.log(response.data)
     const res = response.data
     const code = response.status
     if (code < 200 || code >= 400) {

@@ -6,10 +6,13 @@
 # @Software    : PyCharm
 from rest_framework.views import Response
 from rest_framework.serializers import Serializer
-from rest_framework import status
+from rest_framework_jwt.utils import jwt_decode_handler
+from .models import UserInfo
+from .service.init_permission import init_permission
+from django.conf import settings
 
 
-def jwt_response_payload_handler(token, user=None, request=None):
+def jwt_response_payload_handler(token, request=None, user=None):
     """
     自定义jwt认证成功返回数据
     """

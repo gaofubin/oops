@@ -130,7 +130,7 @@ MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 ############################## new Add config ##########################################
 
 # 自定义user
-AUTH_USER_MODEL = 'rbac.UserProfile'
+AUTH_USER_MODEL = 'rbac.UserInfo'
 
 # restframework 配置
 REST_FRAMEWORK = {
@@ -149,6 +149,10 @@ JWT_AUTH = {
 
 from corsheaders.defaults import default_headers
 CORS_ORIGIN_ALLOW_ALL = True
-# CORS_ALLOW_HEADERS = list(default_headers) + [
-#      'Access-Token',
-# ]
+
+# 定义session 键(权限URL, 权限菜单，所有菜单)
+PERMISSION_URL_KEY = 'puk'
+PERMISSION_MENU_KEY = 'pmk'
+ALL_MENU_KEY = 'amk'
+MENU_KEY = 'mk'
+

@@ -20,13 +20,10 @@ from rest_framework_jwt.views import obtain_jwt_token
 from rbac import views
 from oops import settings
 
-
-
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/login', obtain_jwt_token),
-    path('user/info', views.UserProfileView.as_view()),
+    path('user/info', views.UserInfoView.as_view()),
     re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
 
 ]
