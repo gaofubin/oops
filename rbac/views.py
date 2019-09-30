@@ -6,6 +6,7 @@ from rbac.utils import OopsResponse
 from .models import UserInfo, Role, Menu
 from .service.init_permission import init_permission
 from .service.init_menu import get_structure_data
+from django.conf import settings
 
 
 class UserInfoView(APIView):
@@ -26,9 +27,6 @@ class UserInfoView(APIView):
             "menus": menus
         }
         return OopsResponse(data, status=status.HTTP_200_OK)
-
-
-
 
 
 
