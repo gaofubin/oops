@@ -32,6 +32,11 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
     if (router.alwaysShow === 'true') {
       router.alwaysShow = true
     }
+    if (router.hidden === 'True') {
+      router.hidden = true
+    } else {
+      router.hidden = false
+    }
     if (router.children && router.children.length) {
       router.children = filterAsyncRouter(router.children)
     }
