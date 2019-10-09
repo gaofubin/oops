@@ -14,19 +14,34 @@ def get_structure_data(request):
     all_menu = menu[settings.ALL_MENU_KEY]
     permission_menu = menu[settings.PERMISSION_MENU_KEY]
 
-
+    all_menu_dict = {}
+    permission_menu_dict = {}
     menu_list = []
     for menu in all_menu:
-        del menu['id']
-        del menu['is_show']
-        menu['meta'] = { 'title': '表格', 'icon': 'example' }
+        menu['children'] = []
+        menu['alwaysShow'] = 'true'
+        all_menu_dict[menu['id']] = menu
+
+    request_url = request.path_info
+
+    for perm_menu in permission_menu:
+        all_menu_dict[perm_menu['mid']]['children'].append(perm_menu)
+
+    for menu in all_menu_dict.values():
         menu_list.append(menu)
 
+    print(menu_list)
 
-    print("所有菜单： %s" %menu_list)
+
+    # menu_list = []
+    # for menu in all_menu:
+    #     del menu['id']
+    #     del menu['is_show']
+    #     menu['meta'] = { 'title': '表格', 'icon': 'example' }
+    #     menu_list.append(menu)
+
+    print("所有菜单： %s" %all_menu)
     print("权限菜单： %s" %permission_menu)
-
-
 
     return menu_list
 

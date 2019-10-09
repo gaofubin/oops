@@ -29,6 +29,9 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
         router.component = loadView(component)
       }
     }
+    if (router.alwaysShow === 'true') {
+      router.alwaysShow = true
+    }
     if (router.children && router.children.length) {
       router.children = filterAsyncRouter(router.children)
     }

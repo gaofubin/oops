@@ -54,7 +54,6 @@ export const constantRoutersMap = [
       meta: { title: '首页', icon: 'dashboard', noCache: true }
     }]
   }
-
 ]
 
 export default new Router({

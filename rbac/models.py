@@ -65,7 +65,7 @@ class Menu(models.Model):
     name = models.CharField(max_length=30, unique=True, verbose_name="菜单名")
     path = models.CharField(max_length=128, unique=True, verbose_name="菜单URL")
     icon = models.CharField(max_length=50, null=True, blank=True, verbose_name="图标")
-    is_show = models.BooleanField(default=True, verbose_name="显示标记")
+    hidden = models.BooleanField(default=False, verbose_name="隐藏菜单")
     component = models.CharField(max_length=200, null=True, blank=True, verbose_name="组件")
     parent = models.ForeignKey("self", null=True, blank=True, on_delete=models.SET_NULL, verbose_name="父菜单")
 

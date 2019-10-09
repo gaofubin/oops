@@ -29,7 +29,8 @@ def init_permission(request, user_obj):
         permission_path_list.append(perm['permissions__path'])
         if perm['permissions__menu__id']:
             temp_data = {
-                "id": perm['permissions__menu__id'],
+                "mid": perm['permissions__menu__id'],
+                "name": perm['permissions__name'],
                 "path": perm['permissions__path'],
                 "component": perm['permissions__component'],
                 "meta": {
@@ -39,7 +40,15 @@ def init_permission(request, user_obj):
             }
             permission_menu_list.append(temp_data)
 
-    menu_list = list(Menu.objects.values('id', 'name', 'path', 'icon', 'is_show', 'component'))
+    # menu_list = list(Menu.objects.values('id', 'name', 'path', 'icon', 'hidden', 'component'))
+    menu_list = []
+    menu_obj = Menu.objects.values('id', 'name', 'path', 'icon', 'hidden', 'component')
+    for menu in menu_obj:
+        menu["meta"] = {
+            "title": menu['name'],
+            "icon": menu['icon']
+        }
+        menu_list.append(menu)
     # 注：session在存储时，会先对数据进行序列化，因此对于Queryset对象写入session， 加list()转为可序列化对象
 
     # 保存权限URL
