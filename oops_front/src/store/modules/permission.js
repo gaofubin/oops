@@ -32,7 +32,7 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
     if (router.alwaysShow === 'true') {
       router.alwaysShow = true
     }
-    if (router.hidden === 'True') {
+    if (router.hidden) {
       router.hidden = true
     } else {
       router.hidden = false
