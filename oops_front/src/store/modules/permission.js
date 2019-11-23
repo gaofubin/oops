@@ -21,6 +21,11 @@ const permission = {
 
 export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由字符串，转换为组件对象
   const accessedRouters = routers.filter(router => {
+    if (router.id) {
+      if (!router.children.length) {
+        router.hidden = true
+      }
+    }
     if (router.component) {
       if (router.component === 'Layout') { // Layout组件特殊处理
         router.component = Layout
@@ -31,11 +36,6 @@ export const filterAsyncRouter = (routers) => { // 遍历后台传来的路由�
     }
     if (router.alwaysShow === 'true') {
       router.alwaysShow = true
-    }
-    if (router.hidden) {
-      router.hidden = true
-    } else {
-      router.hidden = false
     }
     if (router.children && router.children.length) {
       router.children = filterAsyncRouter(router.children)
