@@ -22,6 +22,10 @@ class UserInfo(AbstractUser):
     def __str__(self):
         return self.username
 
+    @property
+    def role_name(self):
+        return self.roles.name
+
 
 class Role(models.Model):
     """

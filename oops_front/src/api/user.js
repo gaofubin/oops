@@ -1,24 +1,17 @@
 import request from '@/utils/request'
 
-export function login(data) {
+export function UserList(params) {
   return request({
-    url: '/user/login',
+    url: '/api/users/',
+    method: 'get',
+    params
+  })
+}
+
+export function UserAdd(data) {
+  return request({
+    url: 'api/users/',
     method: 'post',
     data
-  })
-}
-
-export function getInfo(token) {
-  return request({
-    url: '/user/info',
-    method: 'get',
-    params: { token }
-  })
-}
-
-export function logout() {
-  return request({
-    url: '/user/logout',
-    method: 'post'
   })
 }

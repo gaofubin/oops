@@ -14,16 +14,16 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path, re_path
+from django.urls import path, include
 from django.views.static import serve
-from rest_framework_jwt.views import obtain_jwt_token
-from rbac import views
+from django.conf.urls.static import static
 from oops import settings
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('user/login', obtain_jwt_token),
-    path('user/info', views.UserInfoView.as_view()),
-    re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
 
-]
+urlpatterns = [
+    path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path('admin/', admin.site.urls),
+    path(r'', include('rbac.urls')),
+    # 读取media信息
+    # re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

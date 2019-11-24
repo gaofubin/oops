@@ -30,9 +30,9 @@ def init_menu(request):
     for menu in all_menu_dict.values():
         menu_list.append(menu)
 
-    print(menu_list)
-    print("所有菜单： %s" %all_menu)
-    print("权限菜单： %s" %permission_menu)
+    # print(menu_list)
+    # print("所有菜单： %s" %all_menu)
+    # print("权限菜单： %s" %permission_menu)
 
     return menu_list
 

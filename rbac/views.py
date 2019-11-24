@@ -1,12 +1,13 @@
-from django.shortcuts import render
 from rest_framework_jwt.utils import jwt_decode_handler
 from rest_framework.views import APIView
 from rest_framework import status
-from rbac.utils import OopsResponse
-from .models import UserInfo, Role, Menu
+from .utils import OopsResponse
+from .models import UserInfo
+from .serializers import UserViewSetSerializers
 from .service.init_permission import init_permission
 from .service.init_menu import init_menu
-from django.conf import settings
+from rest_framework.viewsets import ModelViewSet
+from common.custom_pagination import MyPageNumberPagination
 
 
 class UserInfoView(APIView):
@@ -29,4 +30,8 @@ class UserInfoView(APIView):
         return OopsResponse(data, status=status.HTTP_200_OK)
 
 
+class UserViewSet(ModelViewSet):
+    queryset = UserInfo.objects.all()
+    serializer_class = UserViewSetSerializers
+    pagination_class = MyPageNumberPagination
 
