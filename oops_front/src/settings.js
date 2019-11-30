@@ -14,5 +14,5 @@ module.exports = {
    */
   sidebarLogo: false,
   tagsView: true,
-  showSettings: true
+  showSettings: false
 }

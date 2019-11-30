@@ -15,3 +15,11 @@ export function UserAdd(data) {
     data
   })
 }
+
+export function modifyUserState(id, data) {
+  return request({
+    url: `api/users/${id}/`,
+    method: 'put',
+    data
+  })
+}

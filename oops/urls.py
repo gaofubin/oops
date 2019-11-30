@@ -18,12 +18,18 @@ from django.urls import path, include
 from django.views.static import serve
 from django.conf.urls.static import static
 from oops import settings
+from rest_framework.documentation import include_docs_urls
+from rest_framework.schemas import get_schema_view
 
+schema_view = get_schema_view(title='Pastebin API')
 
 urlpatterns = [
-    path(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
+    path(r'api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     path('admin/', admin.site.urls),
     path(r'', include('rbac.urls')),
+    # drfapi文档
+    path('schema/', schema_view),
+    path('docs/', include_docs_urls(title="OPS管理系统")),
     # 读取media信息
     # re_path('media/(?P<path>.*)', serve, {'document_root': settings.MEDIA_ROOT})
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

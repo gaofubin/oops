@@ -7,9 +7,10 @@
 from rest_framework.views import Response
 from rest_framework.serializers import Serializer
 from rest_framework_jwt.utils import jwt_decode_handler
-from .models import UserInfo
-from .service.init_permission import init_permission
+from rbac.models import UserInfo
+from rbac.service.init_permission import init_permission
 from django.conf import settings
+from rest_framework.viewsets import ModelViewSet
 
 
 def jwt_response_payload_handler(token, request=None, user=None):
@@ -27,7 +28,7 @@ class OopsResponse(Response):
                  template_name=None, headers=None,
                  exception=False, content_type=None):
         """
-            继承Response，把data封装code与msg参数
+            继承Response，在data中封装code与msg参数
         """
         super().__init__(None, status=status)
 
@@ -54,3 +55,5 @@ class OopsResponse(Response):
         if headers:
             for name, value in headers.items():
                 self[name] = value
+
+

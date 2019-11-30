@@ -3,17 +3,14 @@ from rest_framework import serializers
 from rbac import models
 
 
-
-
-
 class UserViewSetSerializers(serializers.ModelSerializer):
     class Meta:
         model = models.UserInfo
         fields = (
+            "id",
             "email",
             "username",
             "real_name",
-            "image",
             "is_active",
-            "role_name",
+            "password",
         )
