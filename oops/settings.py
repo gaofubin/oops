@@ -130,13 +130,14 @@ STATIC_URL = '/static/'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-############################## new Add config ##########################################
 
+############################## new Add config ##########################################
 # 自定义user
 AUTH_USER_MODEL = 'rbac.UserInfo'
 
 # restframework 配置
 REST_FRAMEWORK = {
+    'EXCEPTION_HANDLER': 'common.custom_exception_handler.exception_handler',
     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
     'DEFAULT_SCHEMA_CLASS': 'rest_framework.schemas.AutoSchema',
     'DEFAULT_AUTHENTICATION_CLASSES': (

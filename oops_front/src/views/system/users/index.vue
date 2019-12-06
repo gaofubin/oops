@@ -170,8 +170,8 @@ export default {
     // 获取用户信息
     getUserList() {
       UserList(this.queryInfo).then(response => {
-        this.userInfo = response.detail.results
-        this.count = response.detail.count
+        this.userInfo = response.data.results
+        this.count = response.data.count
       })
     },
     // 初始化页面大小，每页显示几条数据
@@ -187,7 +187,8 @@ export default {
     // 监听switch状态的改变
     userStateChanged(userinfo) {
       modifyUserState(userinfo.id, userinfo).then(res => {
-        if (res.code !== 200) {
+        console.log(res)
+        if (res.meta.code !== 200) {
           userinfo.is_active = !userinfo.is_active
           return this.$message.error('更新用户状态失败')
         } else {
@@ -210,7 +211,7 @@ export default {
         if (!valid) return
         // 如果表单验证通过，则发起添加用户请求
         UserAdd(this.userAddForm).then(res => {
-          if (res.code === 201) {
+          if (res.meta.code === 201) {
             this.userAddDialogVisible = false
             this.getUserList()
             return this.$message.success('添加用户成功')
@@ -220,10 +221,11 @@ export default {
         })
       })
     },
+    // 编辑用户根据id自动填充数据
     showUserEditId(id) {
       this.userEditDialogVisible = true
       ShowEditId(id).then(res => {
-        this.userEditForm = res
+        this.userEditForm = res.data
       })
     },
     userEditSubmit() {
@@ -232,13 +234,12 @@ export default {
         if (!valid) return
         // 如果表单验证通过，则发起修改用户请求
         UserEdit(this.userEditForm.id, this.userEditForm).then(res => {
-          if (res.code === 200) {
-            this.userEditDialogVisible = false
-            this.getUserList()
-            return this.$message.success('修改用户成功')
-          } else {
+          if (res.meta.code !== 200) {
             return this.$message.error('修改用户失败')
           }
+          this.userEditDialogVisible = false
+          this.getUserList()
+          return this.$message.success('修改用户成功')
         })
       })
     },
@@ -250,13 +251,13 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).catch(err => err)
-      console.log(confirmResult)
       // 用户点击确定，返回字符串comfirm，点击取消返回cancel
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
       UserDel(id).then(res => {
-        if (res.code !== 200) {
+        console.log(res)
+        if (res.meta.code !== 204) {
           return this.$message.error('用户删除失败')
         }
 
